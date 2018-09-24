@@ -1,0 +1,8 @@
+[package]
+name = "bytesort"
+version = "0.1.0"
+authors = ["Kelly Norton <kellegous@gmail.com>"]
+
+[dependencies]
+rand = "0.5.5"
+time = "0.1"
