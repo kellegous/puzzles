@@ -8,4 +8,4 @@ Note that to run the `one_billion` test, you will definitely want to run tests w
 cargo test --release
 ```
 
-I would also recommend commenting out the `one_billiion` test and getting the other, simpler tests to pass first.
+I would also recommend commenting out the `one_billion` test and getting the other, simpler tests to pass first.
