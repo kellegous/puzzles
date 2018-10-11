@@ -1,0 +1,7 @@
+[package]
+name = "divisors"
+version = "0.1.0"
+authors = ["Kelly Norton <knorton@rsglab.com>"]
+
+[dependencies]
+time = "0.1"
