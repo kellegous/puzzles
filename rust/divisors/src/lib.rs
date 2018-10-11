@@ -1,5 +1,46 @@
+fn add_to_factors(facs: &mut Vec<(u32, u32)>, f: u32) {
+    if let Some(e) = facs.last_mut() {
+        if e.0 == f {
+            e.1 += 1;
+            return;
+        }
+    }
+    facs.push((f, 1));
+}
+
+fn find_prime_factors(s: u32) -> Vec<(u32, u32)> {
+    let mut facs: Vec<(u32, u32)> = Vec::new();
+    let mut d = 2;
+    let mut s = s;
+    while s > 1 {
+        if s % d == 0 {
+            add_to_factors(&mut facs, d);
+            s /= d;
+        } else {
+            d += 1;
+        }
+    }
+    facs
+}
+
+fn expand_divisors(
+    divs: &mut Vec<u32>,
+    facs: &[(u32, u32)],
+    f: u32) {
+    match facs.first() {
+        Some((x, c)) => for i in 0..(c+1) {
+            expand_divisors(divs, &facs[1..], x.pow(i) * f);
+        },
+        None => divs.push(f),
+    }
+}
+
 pub fn find_divisors(s: u32) -> Vec<u32> {
-    unimplemented!();
+    let facs = find_prime_factors(s);
+    let mut divs: Vec<u32> = Vec::new();
+    expand_divisors(&mut divs, &facs, 1);
+    divs.sort();
+    divs
 }
 
 #[cfg(test)]
