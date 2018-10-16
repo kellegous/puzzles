@@ -44,8 +44,11 @@ mod tests {
     #[test]
     fn large_number() {
         let t = Timer::new();
+        let ans = find_divisors(1_000_000_000);
+        let t = t.elapsed();
+
         assert_eq!(
-            find_divisors(1_000_000_000),
+            ans,
             vec![1, 2, 4, 5, 8, 10, 16,
                  20, 25, 32, 40, 50, 64,
                  80, 100, 125, 128, 160,
@@ -69,6 +72,7 @@ mod tests {
                  20000000, 25000000, 31250000, 40000000,
                  50000000, 62500000, 100000000, 125000000,
                  200000000, 250000000, 500000000, 1000000000]);
-        println!("large number took {}", t.elapsed());
+
+        println!("large number took {}", t);
     }
 }
