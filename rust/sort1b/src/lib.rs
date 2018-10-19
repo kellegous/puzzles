@@ -1,5 +1,5 @@
 pub fn sort(vals: &mut Vec<u8>) {
-    panic!("implement sort");
+    unimplemented!();
 }
 
 #[cfg(test)]
