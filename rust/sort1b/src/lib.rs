@@ -1,5 +1,16 @@
 pub fn sort(vals: &mut Vec<u8>) {
-    panic!("implement sort");
+    let mut idx = [0; 256];
+    for val in vals.iter() {
+        idx[*val as usize] += 1;
+    }
+
+    let mut i = 0;
+    for j in 0..256 {
+        for _ in 0..idx[j] {
+            vals[i] = j as u8;
+            i += 1;
+        }
+    }
 }
 
 #[cfg(test)]
