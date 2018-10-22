@@ -7,4 +7,5 @@ cargo test
 ```
 
 The game consists of a 33-peg board. On each move, you jump a neighboring peg and remove it until only a single peg remains on the board.
+
 ![Board](https://i.stack.imgur.com/yM9Et.jpg)
