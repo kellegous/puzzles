@@ -1,6 +1,15 @@
 static NONE_GLYPH: char = '○';
 static SOME_GLYPH: char = '●';
 
+/// A list of all valid moves in the game. You can use this if it's helpful,
+/// it is used to validate the moves in the tests.
+/// 
+/// Each item in the slice contains two values, as mask and a value. The mask
+/// has 1's for each pin that would be involved in the move. The lsb corresponds
+/// to the pin in the upper left corner. The value has the value that needs to be
+/// found (after it has been masked) for the move to available. As an example, the
+/// first move is to move the 0th peg into the 2nd peg by jumping the first peg.
+/// This move is represented by a mask of 0x7 (111) and a value of 0x3 (011).
 static VALID_MOVES: &[(u64, u64)] = &[
     (0x7, 0x3),
     (0x109, 0x9),
@@ -103,12 +112,16 @@ impl Board {
         unimplemented!();
     }
 
+    /// Returns all moves needed to solve the board. Each item in the
+    /// vector should represent the board after each move has been taken.
     pub fn find_solution(&self) -> Option<Vec<Self>> {
         unimplemented!();
     }
 }
 
 impl From<u64> for Board {
+    /// Creates a board from a bitset. The lsb corresponds to the upper left
+    /// peg. The lower right peg is represented by the 33rd bit.
     fn from(v: u64) -> Self {
         unimplemented!();
     }
