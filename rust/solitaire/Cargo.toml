@@ -1,0 +1,6 @@
+[package]
+name = "solitaire"
+version = "0.1.0"
+authors = ["Kelly Norton <kellegous@gmail.com>"]
+
+[dependencies]
