@@ -1,5 +1,7 @@
 
 use std::cmp::Ordering;
+use std::os::raw::c_void;
+use std::mem;
 
 #[cfg(target_os = "macos")]
 mod internal {
@@ -16,16 +18,7 @@ mod internal {
     }
 
     extern "C" fn comparator<T>(state: *const c_void, a: *const c_void, b: *const c_void) -> i32 {
-        unsafe {
-            let a: &T = mem::transmute(a);
-            let b: &T = mem::transmute(b);
-            let f: fn(&T, &T) -> Ordering = mem::transmute(state);
-            match f(a, b) {
-                Ordering::Equal => 0,
-                Ordering::Less => -1,
-                Ordering::Greater => 1,
-            }
-        }
+        ::compare_with::<T>(state, a, b)
     }
 
     pub fn sort<T>(data: &mut [T], comp: fn(a: &T, b: &T) -> Ordering) {
@@ -55,16 +48,7 @@ mod internal {
     }
 
     extern "C" fn comparator<T>(a: *const c_void, b: *const c_void, state: *const c_void) -> i32 {
-        unsafe {
-            let a: &T = mem::transmute(a);
-            let b: &T = mem::transmute(b);
-            let f: fn(&T, &T) -> Ordering = mem::transmute(state);
-            match f(a, b) {
-                Ordering::Equal => 0,
-                Ordering::Less => -1,
-                Ordering::Greater => 1,
-            }
-        }
+        ::compare_with::<T>(state, a, b)
     }
 
     pub fn sort<T>(data: &mut [T], comp: fn(a: &T, b: &T) -> Ordering) {
@@ -75,6 +59,19 @@ mod internal {
                 mem::size_of::<T>(),
                 comparator::<T>,
                 state);
+        }
+    }
+}
+
+fn compare_with<T>(state: *const c_void, a: *const c_void, b: *const c_void) -> i32 {
+    unsafe {
+        let a: &T = mem::transmute(a);
+        let b: &T = mem::transmute(b);
+        let f: fn(&T, &T) -> Ordering = mem::transmute(state);
+        match f(a, b) {
+            Ordering::Equal => 0,
+            Ordering::Less => -1,
+            Ordering::Greater => 1,
         }
     }
 }
