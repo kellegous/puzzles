@@ -1,0 +1,6 @@
+[package]
+name = "ffi-qsort"
+version = "0.1.0"
+authors = ["Matthew Nicholson <mnicholson@rsglab.com>"]
+
+[dependencies]
